@@ -1,0 +1,7 @@
+
+
+java:S1319'"pThe type of the "array" object should be an interface such as "List" rather than the implementation "ArrayList".(óÆ÷›8Òÿ£³˜/
+N
+java:S1874E"9Remove this use of "getDefaultDisplay"; it is deprecated.(Ìºâ
+G
+java:S1874E"2Remove this use of "getMetrics"; it is deprecated.(Ìºâ

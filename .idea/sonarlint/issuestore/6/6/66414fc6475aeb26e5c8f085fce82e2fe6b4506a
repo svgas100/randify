@@ -1,0 +1,12 @@
+
+U
+java:S1128	"8Remove this unused import 'androidx.annotation.NonNull'.(ˆÛúÜ8¬¨ä³˜/
+X
+java:S1128"6Remove this unused import 'android.util.AttributeSet'.(ì®Å±ùÿÿÿÿ8¬¨ä³˜/
+g
+java:S1874'"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ŸŒ¹Ñ8åÉè²˜/
+V
+java:S1128
+"9Remove this unused import 'androidx.annotation.Nullable'.(¾Èêš8¬¨ä³˜/
+Q
+java:S1128"4Remove this unused import 'android.content.Context'.(©Ê‰è8¬¨ä³˜/
