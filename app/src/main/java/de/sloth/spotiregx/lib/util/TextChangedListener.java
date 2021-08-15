@@ -10,17 +10,16 @@ import java.util.function.Consumer;
 
 public class TextChangedListener implements TextWatcher {
 
-    private final long delay; // milliseconds
+    private final long delayInMillis;
     private final Consumer<Editable> onTextChanged;
 
     private Timer timer;
 
 
-    public TextChangedListener(long delay, Consumer<Editable> onTextChanged){
-        this.delay = delay;
+    public TextChangedListener(long delayInMillis, Consumer<Editable> onTextChanged){
+        this.delayInMillis = delayInMillis;
         this.onTextChanged = onTextChanged;
-
-        timer = new Timer();
+        this.timer = new Timer();
     }
 
         @Override
@@ -37,7 +36,7 @@ public class TextChangedListener implements TextWatcher {
                 public void run() {
                     onTextChanged.accept(s);
                 }
-            }, delay);
+            }, delayInMillis);
         }
 
         @Override
