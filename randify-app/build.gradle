@@ -40,8 +40,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
 
     implementation 'com.github.kaaes:spotify-web-api-android:0.4.1'
-    implementation project(':spotify-app-remote')
-    implementation project(':spotify-auth')
+    implementation project(':spotify-remote-api')
     implementation "com.google.code.gson:gson:2.8.6"
 
     implementation 'com.squareup.okhttp3:okhttp:3.12.3'

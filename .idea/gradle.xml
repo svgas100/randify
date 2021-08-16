@@ -11,9 +11,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/spotify-app-remote" />
-            <option value="$PROJECT_DIR$/spotify-auth" />
+            <option value="$PROJECT_DIR$/randify-app" />
+            <option value="$PROJECT_DIR$/spotify-remote-api" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
