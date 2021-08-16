@@ -41,7 +41,7 @@ public class StableArrayAdapter extends ArrayAdapter<Pair<String, String>> {
             view = convertView;
         }
 
-        text = (TextView) view.findViewById(R.id.rowText);
+        text = view.findViewById(R.id.rowText);
         text.setText(getItem(position).first);
         return view;
     }

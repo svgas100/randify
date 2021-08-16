@@ -7,8 +7,6 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
-import de.sloth.spotiregx.lib.db.api.DatabaseService;
-import de.sloth.spotiregx.lib.db.impl.DatabaseServiceImpl;
 import de.sloth.spotiregx.lib.spotify.api.SpotifyAuthService;
 import de.sloth.spotiregx.lib.spotify.api.SpotifyPlayService;
 import de.sloth.spotiregx.lib.spotify.api.SpotifyRandomPlaybackService;

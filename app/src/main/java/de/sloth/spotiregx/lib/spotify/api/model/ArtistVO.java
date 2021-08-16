@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class ArtistVO {
-    private Map<String, String> external_urls;
+    private Map<String, String> externalUrls;
     private String href;
     private String id;
     private String name;

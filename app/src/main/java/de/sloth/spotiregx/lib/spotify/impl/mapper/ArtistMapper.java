@@ -17,7 +17,7 @@ public final class ArtistMapper {
         targetArtist.setHref(sourceArtist.href);
         targetArtist.setType(sourceArtist.type);
         targetArtist.setUri(sourceArtist.uri);
-        targetArtist.setExternal_urls(new HashMap<>(sourceArtist.external_urls));
+        targetArtist.setExternalUrls(new HashMap<>(sourceArtist.external_urls));
         return targetArtist;
         }
 }
