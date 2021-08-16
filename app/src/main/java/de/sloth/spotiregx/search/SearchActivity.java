@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import de.sloth.spotiregx.R;
 import de.sloth.spotiregx.lib.db.model.bo.Artist;
 import de.sloth.spotiregx.lib.spotify.api.SpotifySearchService;
+import de.sloth.spotiregx.lib.spotify.api.model.ArtistVO;
 import de.sloth.spotiregx.lib.util.TextChangedListener;
 import de.sloth.spotiregx.lib.util.TextViewArrayAdapter;
 
@@ -40,7 +41,7 @@ public class SearchActivity extends AppCompatActivity {
 
         // init search result list.
         ListView searchResultList = findViewById(android.R.id.list);
-        TextViewArrayAdapter<Artist> adapter = new TextViewArrayAdapter<Artist>(this, android.R.layout.simple_list_item_activated_1, new ArrayList<>()) {
+        TextViewArrayAdapter<Artist> adapter = new TextViewArrayAdapter<>(this, android.R.layout.simple_list_item_activated_1, new ArrayList<>()) {
             @Override
             protected String listEntryToString(Artist entry) {
                 return entry.artistName;
@@ -56,15 +57,15 @@ public class SearchActivity extends AppCompatActivity {
         // init search bar - fill result list view.
         EditText searchBar = findViewById(R.id.search_artist);
         searchBar.addTextChangedListener(new TextChangedListener(500, s -> {
-            Collection<kaaes.spotify.webapi.android.models.Artist> tResult = mSpotifySearchService.searchArtists(s.toString());
+            Collection<ArtistVO> tResult = mSpotifySearchService.searchArtists(s.toString());
 
             runOnUiThread(() -> {
                 synchronized (LOCK) {
                     adapter.clear();
                     adapter.addAll(tResult.stream().map(a -> {
                         Artist artist = new Artist();
-                        artist.artistUri = a.uri;
-                        artist.artistName = a.name;
+                        artist.artistUri = a.getUri();
+                        artist.artistName = a.getName();
                         return artist;
                     }).collect(Collectors.toCollection(ArrayList::new)));
                     adapter.notifyDataSetChanged();

@@ -15,6 +15,8 @@ import javax.inject.Inject;
 import de.sloth.spotiregx.lib.spotify.api.SpotifyAuthService;
 import de.sloth.spotiregx.lib.spotify.api.SpotifyPlayService;
 import de.sloth.spotiregx.lib.spotify.api.SpotifyRandomPlaybackService;
+import de.sloth.spotiregx.lib.spotify.api.model.AlbumVO;
+import de.sloth.spotiregx.lib.spotify.impl.mapper.AlbumMapper;
 import kaaes.spotify.webapi.android.SpotifyError;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.Album;
@@ -37,23 +39,23 @@ public class SpotifyRandomPlaybackServiceImpl implements SpotifyRandomPlaybackSe
     }
 
     @Override
-    public String playRandomAlbumOfArtists(String artistsSpotifyUri, Predicate<Album> aFilter) {
-        List<Album> allEpisodes = new ArrayList<>();
+    public String playRandomAlbumOfArtists(String artistsSpotifyUri, Predicate<AlbumVO> aFilter) {
+        List<AlbumVO> allEpisodes = new ArrayList<>();
         try {
             Collection<Album> tAlbums = getAllArtistsAlbums(artistsSpotifyUri);
-            tAlbums.stream().filter(aFilter).forEach(allEpisodes::add);
+            tAlbums.stream().map(AlbumMapper::map).filter(aFilter).forEach(allEpisodes::add);
         } catch (SpotifyError spotifyError) {
             Log.e(PREFIX, "Failed to fetch albums from spotify", spotifyError);
         }
 
         Log.i(PREFIX, "Trying to play random album!");
 
-        Album album = allEpisodes.get(new Random().nextInt(allEpisodes.size()));
+        AlbumVO album = allEpisodes.get(new Random().nextInt(allEpisodes.size()));
 
-        mSpotifyPlayService.playAlbum(album.id);
+        mSpotifyPlayService.playAlbum(album.getId());
 
-        Log.i(PREFIX, "Playing " + album.name);
-        return album.name;
+        Log.i(PREFIX, "Playing " + album.getName());
+        return album.getName();
     }
 
     private Collection<Album> getAllArtistsAlbums(String artistId) throws SpotifyError {

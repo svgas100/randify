@@ -6,7 +6,6 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -30,7 +29,6 @@ import de.sloth.spotiregx.lib.db.api.DatabaseService;
 import de.sloth.spotiregx.lib.db.model.bo.Artist;
 import de.sloth.spotiregx.lib.spotify.api.SpotifyRandomPlaybackService;
 import de.sloth.spotiregx.lib.util.StableArrayAdapter;
-import de.sloth.spotiregx.search.ArtistSaveDialogFragment;
 
 @AndroidEntryPoint
 public class ArtistsListFragment extends ListFragment {
@@ -65,7 +63,7 @@ public class ArtistsListFragment extends ListFragment {
 
         mDatabaseService.performDatabaseAction(getContext(), appDatabase -> {
             List<Artist> artistList = appDatabase.artistDAO().getAll();
-            mArray = artistList.stream().map(artist -> new Pair<String, String>(artist.artistName, artist.artistUri)).collect(Collectors.toCollection(ArrayList::new));
+            mArray = artistList.stream().map(artist -> new Pair<>(artist.artistName, artist.artistUri)).collect(Collectors.toCollection(ArrayList::new));
             mArrayAdapter = new StableArrayAdapter(getActivity(), R.layout.row, mArray);
             mListView.setAdapter(mArrayAdapter);
             mArrayAdapter.notifyDataSetChanged();
@@ -92,9 +90,9 @@ public class ArtistsListFragment extends ListFragment {
         CompletableFuture<String> tResult = null;
         // TODO dirty hack.
         if (position == 0) {
-            tResult = CompletableFuture.supplyAsync(() -> mSpotifyRandomPlaybackService.playRandomAlbumOfArtists(tPair.second, album -> Character.isDigit(album.name.charAt(0))));
+            tResult = CompletableFuture.supplyAsync(() -> mSpotifyRandomPlaybackService.playRandomAlbumOfArtists(tPair.second, album -> Character.isDigit(album.getName().charAt(0))));
         } else if (position == 1) {
-            tResult = CompletableFuture.supplyAsync(() -> mSpotifyRandomPlaybackService.playRandomAlbumOfArtists(tPair.second, album -> album.name.startsWith("Folge")));
+            tResult = CompletableFuture.supplyAsync(() -> mSpotifyRandomPlaybackService.playRandomAlbumOfArtists(tPair.second, album -> album.getName().startsWith("Folge")));
         } else {
             tResult = CompletableFuture.supplyAsync(() -> mSpotifyRandomPlaybackService.playRandomAlbumOfArtists(tPair.second, album -> true));
         }

@@ -2,9 +2,10 @@ package de.sloth.spotiregx.lib.spotify.api;
 
 import java.util.function.Predicate;
 
-import kaaes.spotify.webapi.android.models.Album;
+import de.sloth.spotiregx.lib.spotify.api.model.AlbumVO;
+
 
 public interface SpotifyRandomPlaybackService {
 
-    String playRandomAlbumOfArtists(String artistsSpotifyUri, Predicate<Album> aFilter);
+    String playRandomAlbumOfArtists(String artistsSpotifyUri, Predicate<AlbumVO> aFilter);
 }

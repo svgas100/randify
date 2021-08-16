@@ -1,10 +1,10 @@
 package de.sloth.spotiregx.lib.spotify.api;
 
-import java.util.Collection;
+import java.util.List;
 
-import kaaes.spotify.webapi.android.models.Artist;
+import de.sloth.spotiregx.lib.spotify.api.model.ArtistVO;
 
 public interface SpotifySearchService {
 
-    Collection<Artist> searchArtists(String searchRequest);
+    List<ArtistVO> searchArtists(String searchRequest);
 }
