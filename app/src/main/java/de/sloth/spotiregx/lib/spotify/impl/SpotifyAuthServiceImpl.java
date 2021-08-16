@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
@@ -14,12 +13,13 @@ import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
+import javax.inject.Singleton;
+
 import de.sloth.spotiregx.R;
-import de.sloth.spotiregx.lib.spotify.api.SpotifyAuthService;
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
 
-public class SpotifyAuthServiceImpl implements SpotifyAuthService {
+public class SpotifyAuthServiceImpl implements SpotifyAuthServiceInternal {
 
     private static final String PREFIX = SpotifyAuthServiceImpl.class.getSimpleName();
 

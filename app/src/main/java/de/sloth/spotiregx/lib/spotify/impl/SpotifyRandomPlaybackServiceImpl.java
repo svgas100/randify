@@ -28,13 +28,13 @@ public class SpotifyRandomPlaybackServiceImpl implements SpotifyRandomPlaybackSe
     private static final String PREFIX = SpotifyRandomPlaybackServiceImpl.class.getSimpleName();
 
 
-    private final SpotifyAuthService mSpotifyAuthService;
+    private final SpotifyInternalApiAccessor mSpotifyApiAccessor;
 
     private final SpotifyPlayService mSpotifyPlayService;
 
     @Inject
-    public SpotifyRandomPlaybackServiceImpl(SpotifyAuthService spotifyAuthService, SpotifyPlayService spotifyPlayService) {
-        mSpotifyAuthService = spotifyAuthService;
+    public SpotifyRandomPlaybackServiceImpl(SpotifyInternalApiAccessor spotifyApiAccessor, SpotifyPlayService spotifyPlayService) {
+        mSpotifyApiAccessor = spotifyApiAccessor;
         mSpotifyPlayService = spotifyPlayService;
     }
 
@@ -78,7 +78,7 @@ public class SpotifyRandomPlaybackServiceImpl implements SpotifyRandomPlaybackSe
                     tArtistId = artistId;
                 }
 
-                albumPager = mSpotifyAuthService.getSpotifyWebApi().getArtistAlbums(tArtistId, tOptions);
+                albumPager = mSpotifyApiAccessor.getSpotifyWebApi().getArtistAlbums(tArtistId, tOptions);
 
                 tResultCollection.addAll(albumPager.items);
 

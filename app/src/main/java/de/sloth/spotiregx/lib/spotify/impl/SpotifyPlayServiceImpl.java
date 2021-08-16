@@ -9,15 +9,15 @@ public class SpotifyPlayServiceImpl implements SpotifyPlayService {
 
     private static final String SPOTIFY_ALBUM_PREFIX = "spotify:album:";
 
-    private final SpotifyAuthService mSpotifyAuthService;
+    private final SpotifyInternalApiAccessor mSpotifyApiAccessor;
 
     @Inject
-    public SpotifyPlayServiceImpl(SpotifyAuthService spotifyAuthService) {
-        mSpotifyAuthService = spotifyAuthService;
+    public SpotifyPlayServiceImpl(SpotifyInternalApiAccessor spotifyApiAccessor) {
+        mSpotifyApiAccessor = spotifyApiAccessor;
     }
 
     @Override
     public void playAlbum(String albumUri) {
-        mSpotifyAuthService.getSpotifyAppRemote().getPlayerApi().play(SPOTIFY_ALBUM_PREFIX + albumUri);
+        mSpotifyApiAccessor.getSpotifyAppRemote().getPlayerApi().play(SPOTIFY_ALBUM_PREFIX + albumUri);
     }
 }

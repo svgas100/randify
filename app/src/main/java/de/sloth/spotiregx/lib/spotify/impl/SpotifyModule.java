@@ -7,6 +7,8 @@ import dagger.Module;
 import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
+import de.sloth.spotiregx.lib.db.api.DatabaseService;
+import de.sloth.spotiregx.lib.db.impl.DatabaseServiceImpl;
 import de.sloth.spotiregx.lib.spotify.api.SpotifyAuthService;
 import de.sloth.spotiregx.lib.spotify.api.SpotifyPlayService;
 import de.sloth.spotiregx.lib.spotify.api.SpotifyRandomPlaybackService;
@@ -18,9 +20,16 @@ public abstract class SpotifyModule {
 
     @Provides
     @Singleton
-    static SpotifyAuthService bindSpotifyAuthService(){
+    @SuppressWarnings("unused")
+    static SpotifyAuthServiceInternal bindSpotifyAuthServiceInternal(){
         return new SpotifyAuthServiceImpl();
     }
+
+    @Binds
+    public abstract SpotifyAuthService bindSpotifyAuthService(SpotifyAuthServiceInternal spotifyAuthService);
+
+    @Binds
+    public abstract SpotifyInternalApiAccessor bindSpotifyInternalApiAccessor(SpotifyAuthServiceInternal spotifyAuthService);
 
     @Binds
     @Singleton

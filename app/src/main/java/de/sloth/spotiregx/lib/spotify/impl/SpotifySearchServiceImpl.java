@@ -14,11 +14,11 @@ import kaaes.spotify.webapi.android.SpotifyService;
 
 public class SpotifySearchServiceImpl implements SpotifySearchService {
 
-    private final SpotifyAuthService mSpotifyAuthService;
+    private final SpotifyInternalApiAccessor mSpotifyApiAccessor;
 
     @Inject
-    public SpotifySearchServiceImpl(SpotifyAuthService spotifyAuthService){
-        mSpotifyAuthService = spotifyAuthService;
+    public SpotifySearchServiceImpl(SpotifyInternalApiAccessor spotifyApiAccessor){
+        mSpotifyApiAccessor = spotifyApiAccessor;
     }
 
     // TODO make own data type.
@@ -27,7 +27,7 @@ public class SpotifySearchServiceImpl implements SpotifySearchService {
         if(searchRequest == null || searchRequest.length() < 1){
             return Collections.emptyList();
         }
-        SpotifyService tAuthService = mSpotifyAuthService.getSpotifyWebApi();
+        SpotifyService tAuthService = mSpotifyApiAccessor.getSpotifyWebApi();
         return tAuthService.searchArtists(searchRequest).artists.items.stream().map(ArtistMapper::map).collect(Collectors.toList());
     }
 
