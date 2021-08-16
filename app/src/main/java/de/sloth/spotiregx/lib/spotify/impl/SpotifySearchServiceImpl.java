@@ -7,10 +7,8 @@ import javax.inject.Inject;
 
 import de.sloth.spotiregx.lib.spotify.api.SpotifyAuthService;
 import de.sloth.spotiregx.lib.spotify.api.SpotifySearchService;
-import de.sloth.spotiregx.lib.spotify.impl.util.PagingHelper;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.Artist;
-import kaaes.spotify.webapi.android.models.ArtistsPager;
 
 public class SpotifySearchServiceImpl implements SpotifySearchService {
 
