@@ -1,0 +1,4 @@
+# randify
+![build status](https://github.com/svgas100/randify/actions/workflows/build.yml/badge.svg) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=svgas100_randify&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=svgas100_randify) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=svgas100_randify&metric=alert_status)](https://sonarcloud.io/dashboard?id=svgas100_randify) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=svgas100_randify&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=svgas100_randify) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=svgas100_randify&metric=security_rating)](https://sonarcloud.io/dashboard?id=svgas100_randify)
+
+Small simple android app for random playback of certain spotify artists.
