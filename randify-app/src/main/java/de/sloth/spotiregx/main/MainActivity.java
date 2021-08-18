@@ -6,6 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -22,11 +24,15 @@ public class MainActivity extends AppCompatActivity {
 
     private View mView;
 
+    private FloatingActionButton mFloatingButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mView = findViewById(R.id.artists_list_fragment);
+        mFloatingButton = findViewById(R.id.floating_action_button);
+        mFloatingButton.setOnClickListener(this::onAdd);
         mView.setEnabled(false);
         mSpotifyAuthService.redirectForAuthorization(this);
     }
@@ -41,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressWarnings("java:S1172")
     public void onAdd(View view) {
         Intent intent = new Intent(this, SearchActivity.class);
         startActivity(intent);
