@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".main.MainActivity" android:theme="@style/AppThemeNoActionBar">
             <intent-filter>
 
@@ -35,6 +36,9 @@
                     android:host="@string/com_spotify_sdk_redirect_host"
                     android:scheme="@string/com_spotify_sdk_redirect_scheme" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.spotify.sdk.android.auth.LoginActivity">
+
         </activity>
     </application>
 

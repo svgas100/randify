@@ -2,7 +2,6 @@ package de.sloth.spotiregx.lib.spotify.impl;
 
 import javax.inject.Inject;
 
-import de.sloth.spotiregx.lib.spotify.api.SpotifyAuthService;
 import de.sloth.spotiregx.lib.spotify.api.SpotifyPlayService;
 
 public class SpotifyPlayServiceImpl implements SpotifyPlayService {
