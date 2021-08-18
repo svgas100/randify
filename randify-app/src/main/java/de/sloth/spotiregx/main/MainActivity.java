@@ -24,15 +24,13 @@ public class MainActivity extends AppCompatActivity {
 
     private View mView;
 
-    private FloatingActionButton mFloatingButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mView = findViewById(R.id.artists_list_fragment);
-        mFloatingButton = findViewById(R.id.floating_action_button);
+        FloatingActionButton mFloatingButton = findViewById(R.id.floating_action_button);
         mFloatingButton.setOnClickListener(this::onAdd);
+        mView = findViewById(R.id.artists_list_fragment);
         mView.setEnabled(false);
         mSpotifyAuthService.redirectForAuthorization(this);
     }

@@ -34,7 +34,7 @@ class SpotifyPlayServiceImplTest {
     }
 
     @Test
-    public void testPlay() {
+    void testPlay() {
         unitUnderTest.playAlbum("test:album");
 
         verify(spotifyInternalApiAccessorMock).getSpotifyAppRemote();
