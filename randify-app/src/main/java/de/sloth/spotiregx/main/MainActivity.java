@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,15 +25,13 @@ public class MainActivity extends AppCompatActivity {
     @Inject
     protected SpotifyAuthService mSpotifyAuthService;
 
-    private View mView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         FloatingActionButton mFloatingButton = findViewById(R.id.floating_action_button);
         mFloatingButton.setOnClickListener(this::onAdd);
-        mView = findViewById(R.id.artists_list_fragment);
+        final View mView = findViewById(R.id.artists_list_fragment);
         mView.setEnabled(false);
         ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -44,9 +40,8 @@ public class MainActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         mSpotifyAuthService.registerAuthentication(data);
                         mView.setEnabled(true);
-                    }else{
-                        // error handling
                     }
+                    // error handling
                 });
 
         Intent intent = mSpotifyAuthService.redirectForAuthorization(this);

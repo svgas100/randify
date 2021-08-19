@@ -31,9 +31,7 @@ public class SpotifyAuthServiceImpl implements SpotifyAuthServiceInternal {
 
     private static final String CLIENT_ID = "ae37e92226e24aae8251e4679ac6b13e";
 
-    private static final int AUTH_TOKEN_REQUEST_CODE = 0x10;
-
-    private final String EXTRA_AUTH_RESPONSE = "EXTRA_AUTH_RESPONSE";
+    private static final String EXTRA_AUTH_RESPONSE = "EXTRA_AUTH_RESPONSE";
 
     private static final String RESPONSE_KEY = "response";
 
