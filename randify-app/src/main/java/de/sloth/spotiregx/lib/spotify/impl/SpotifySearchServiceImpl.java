@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
-import de.sloth.spotiregx.lib.spotify.api.SpotifyAuthService;
 import de.sloth.spotiregx.lib.spotify.api.SpotifySearchService;
 import de.sloth.spotiregx.lib.spotify.api.model.ArtistVO;
 import de.sloth.spotiregx.lib.spotify.impl.mapper.ArtistMapper;
@@ -21,14 +20,19 @@ public class SpotifySearchServiceImpl implements SpotifySearchService {
         mSpotifyApiAccessor = spotifyApiAccessor;
     }
 
-    // TODO make own data type.
     @Override
     public List<ArtistVO> searchArtists(String searchRequest){
-        if(searchRequest == null || searchRequest.length() < 1){
+        if(searchRequest == null || searchRequest.length() < 3){
             return Collections.emptyList();
         }
+
         SpotifyService tAuthService = mSpotifyApiAccessor.getSpotifyWebApi();
-        return tAuthService.searchArtists(searchRequest).artists.items.stream().map(ArtistMapper::map).collect(Collectors.toList());
+        return tAuthService.searchArtists(searchRequest)
+                .artists
+                .items
+                .stream()
+                .map(ArtistMapper::map)
+                .collect(Collectors.toList());
     }
 
 }

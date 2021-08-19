@@ -1,15 +1,12 @@
 package de.sloth.spotiregx.lib.spotify.impl;
 
+import static android.content.Intent.FLAG_ACTIVITY_NO_USER_ACTION;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
-
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
@@ -17,9 +14,6 @@ import com.spotify.android.appremote.api.SpotifyAppRemote;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
-import com.spotify.sdk.android.auth.LoginActivity;
-
-import javax.inject.Singleton;
 
 import de.sloth.spotiregx.R;
 import kaaes.spotify.webapi.android.SpotifyApi;
@@ -77,12 +71,10 @@ public class SpotifyAuthServiceImpl implements SpotifyAuthServiceInternal {
 
         // Connect to spotify remote app.
         SpotifyAppRemote.connect(context, connectionParams, new Connector.ConnectionListener() {
-
             @Override
             public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                 mSpotifyAppRemote = spotifyAppRemote;
             }
-
             @Override
             public void onFailure(Throwable throwable) {
                 Log.e(PREFIX, "Failed to connect to spotify app!", throwable);
@@ -90,7 +82,7 @@ public class SpotifyAuthServiceImpl implements SpotifyAuthServiceInternal {
         });
 
         // Retrieve auth token.
-        return AuthorizationClient.createLoginActivityIntent(activity, request);
+        return AuthorizationClient.createLoginActivityIntent(activity, request).addFlags(FLAG_ACTIVITY_NO_USER_ACTION);
     }
 
     @Override
