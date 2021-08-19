@@ -35,6 +35,14 @@ class SpotifySearchServiceImplTest {
     @InjectMocks
     private SpotifySearchServiceImpl unitUnderTest;
 
+    @Test
+    void testNullSearch(){
+        List<ArtistVO> result = unitUnderTest.searchArtists(null);
+
+        verifyNoInteractions(mSpotifyApiAccessorMock);
+        assertTrue(result.isEmpty());
+    }
+
     @ParameterizedTest
     @ValueSource(strings = { "", "t", "te"})
     void testSearchForStringsShort3(String param){
