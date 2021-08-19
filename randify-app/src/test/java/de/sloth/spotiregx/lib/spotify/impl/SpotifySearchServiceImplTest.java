@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
@@ -37,9 +38,10 @@ class SpotifySearchServiceImplTest {
     @ParameterizedTest
     @ValueSource(strings = { "", "t", "te"})
     void testSearchForStringsShort3(String param){
-        unitUnderTest.searchArtists(param);
+        List<ArtistVO> result = unitUnderTest.searchArtists(param);
 
-        Mockito.verifyNoInteractions(mSpotifyApiAccessorMock);
+        verifyNoInteractions(mSpotifyApiAccessorMock);
+        assertTrue(result.isEmpty());
     }
 
     @Test
