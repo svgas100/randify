@@ -88,7 +88,7 @@ sonarqube {
         property "sonar.projectKey", "svgas100_randify"
         property "sonar.organization", "svgas100"
         property "sonar.host.url", "https://sonarcloud.io"
-        property "sonar.coverage.jacoco.xmlReportPaths", "$buildDir/reports/jacoco/jacoco.xml"
+        property "sonar.coverage.jacoco.xmlReportPaths", "$buildDir/jacoco/jacoco.xml"
         property "sonar.junit.reportsPath", "$buildDir/test-results/*/TEST-*.xml"
     }
 }
