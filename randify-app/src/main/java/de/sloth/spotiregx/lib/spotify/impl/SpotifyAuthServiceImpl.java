@@ -6,12 +6,18 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
+import com.spotify.sdk.android.auth.LoginActivity;
 
 import javax.inject.Singleton;
 
@@ -27,6 +33,10 @@ public class SpotifyAuthServiceImpl implements SpotifyAuthServiceInternal {
 
     private static final int AUTH_TOKEN_REQUEST_CODE = 0x10;
 
+    private final String EXTRA_AUTH_RESPONSE = "EXTRA_AUTH_RESPONSE";
+
+    private static final String RESPONSE_KEY = "response";
+
     /*
      * Stateful
      */
@@ -35,16 +45,14 @@ public class SpotifyAuthServiceImpl implements SpotifyAuthServiceInternal {
     private SpotifyService mSpotifyService;
 
     @Override
-    public void redirectForAuthorization(Activity activity) {
+    public Intent redirectForAuthorization(Activity activity) {
         Log.i(PREFIX, "Invoked spotify authorization.");
 
         Context context = activity.getApplicationContext();
 
         if (!SpotifyAppRemote.isSpotifyInstalled(context)) {
             Log.e(PREFIX, "Spotify not installed!");
-
             AuthorizationClient.openDownloadSpotifyActivity(activity);
-
         }
 
         String tRedirectSchema = context.getString(R.string.com_spotify_sdk_redirect_scheme);
@@ -68,8 +76,6 @@ public class SpotifyAuthServiceImpl implements SpotifyAuthServiceInternal {
 
         AuthorizationRequest request = getAuthenticationRequest(tRedirectUrl);
 
-        // Retrieve auth token.
-        AuthorizationClient.openLoginActivity(activity, AUTH_TOKEN_REQUEST_CODE, request);
 
         // Connect to spotify remote app.
         SpotifyAppRemote.connect(context, connectionParams, new Connector.ConnectionListener() {
@@ -84,11 +90,14 @@ public class SpotifyAuthServiceImpl implements SpotifyAuthServiceInternal {
                 Log.e(PREFIX, "Failed to connect to spotify app!", throwable);
             }
         });
+
+        // Retrieve auth token.
+        return AuthorizationClient.createLoginActivityIntent(activity, request);
     }
 
     @Override
-    public boolean registerAuthentication(int resultCode, Intent data) {
-        AuthorizationResponse response = AuthorizationClient.getResponse(resultCode, data);
+    public boolean registerAuthentication(Intent data) {
+        AuthorizationResponse response =  data.getBundleExtra(EXTRA_AUTH_RESPONSE).getParcelable(RESPONSE_KEY);
         if (response.getError() != null && response.getError().isEmpty()) {
             Log.e(PREFIX, "Something went wrong requesting the authorization token.");
             return false;

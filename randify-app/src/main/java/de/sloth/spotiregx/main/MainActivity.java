@@ -1,9 +1,14 @@
 package de.sloth.spotiregx.main;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,17 +37,20 @@ public class MainActivity extends AppCompatActivity {
         mFloatingButton.setOnClickListener(this::onAdd);
         mView = findViewById(R.id.artists_list_fragment);
         mView.setEnabled(false);
-        mSpotifyAuthService.redirectForAuthorization(this);
-    }
+        ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        mSpotifyAuthService.registerAuthentication(data);
+                        mView.setEnabled(true);
+                    }else{
+                        // error handling
+                    }
+                });
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(mSpotifyAuthService.registerAuthentication(resultCode, data)){
-            mView.setEnabled(true);
-        }else{
-            mSpotifyAuthService.redirectForAuthorization(this);
-        }
+        Intent intent = mSpotifyAuthService.redirectForAuthorization(this);
+        someActivityResultLauncher.launch(intent);
     }
 
     private void onAdd(View view) {

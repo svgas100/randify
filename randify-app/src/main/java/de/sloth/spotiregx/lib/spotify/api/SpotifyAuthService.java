@@ -5,7 +5,7 @@ import android.content.Intent;
 
 public interface SpotifyAuthService{
 
-    void redirectForAuthorization(Activity activity);
+    Intent redirectForAuthorization(Activity activity);
 
-    boolean registerAuthentication(int resultCode, Intent data);
+    boolean registerAuthentication(Intent data);
 }
