@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'org.sonarqube'
 apply plugin: 'io.freefair.lombok'
-apply plugin: 'jacoco'
+apply plugin: 'com.dicedmelon.gradle.jacoco-android'
 
 android {
     compileSdkVersion 30
@@ -91,4 +91,9 @@ sonarqube {
         property "sonar.coverage.jacoco.xmlReportPaths", "randify-app/build/jacoco/jacoco.xml"
         property "sonar.junit.reportsPath", "randify-app/build/test-results/*/TEST-*.xml"
     }
+}
+
+jacocoAndroidUnitTestReport {
+    xml.enabled true
+    html.enabled false
 }
